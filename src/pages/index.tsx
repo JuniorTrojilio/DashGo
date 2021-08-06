@@ -32,7 +32,7 @@ export default function Home() {
             <Button 
               type="submit" 
               mt="6" 
-              colorScheme="pink" 
+              colorScheme="yellow" 
               size="lg">Entrar</Button>
         </Flex>
     </Flex>

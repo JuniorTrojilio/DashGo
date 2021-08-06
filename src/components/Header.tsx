@@ -18,8 +18,8 @@ export function Header(){
         fontWeight="bold"
         letterSpacing="tight"
         w="64"
-      >DashGo
-        <Text as="span" ml="1" color="pink.500">.</Text>
+      >Impulsefy
+        <Text as="span" ml="1" color="yellow" fontWeight="bold">.</Text>
       </Text>
 
       <Flex
