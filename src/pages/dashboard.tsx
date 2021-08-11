@@ -2,6 +2,11 @@ import { Header } from "../components/Header";
 import { Flex, SimpleGrid, Box, Text, theme } from '@chakra-ui/react'
 import dynamic from 'next/dynamic'
 import { Sidebar } from "../components/Sidebar";
+import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
+import { withSSRAuth } from "../utils/withSSRAuth";
+import { setupAPIClient } from "../services/api";
+import { useCan } from "../services/hooks/useCan";
 
 const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false
@@ -63,6 +68,11 @@ const series = [
 ]
 
 export default function Dashboard(){
+  const {user} = useContext(AuthContext)
+  const userCanSeeMetrics = useCan({
+    roles: ['administrator', 'editor'],
+  })
+
   return (
    <Flex direction="column" h="100vh">
     <Header />
@@ -108,3 +118,14 @@ export default function Dashboard(){
    </Flex>
   )
 }
+
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+  const apiClient = setupAPIClient(ctx)
+  const response = await apiClient.get('/me')
+
+  console.log(response.data)
+
+  return {
+    props: {}
+  }
+})
